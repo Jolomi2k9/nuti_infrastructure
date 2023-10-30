@@ -3,7 +3,7 @@
 module "networking" {
   source   = "./networking"
   vpc_cidr = local.vpc_cidr
-  #number of subnet to generate using cidrsubnet function  
+  #number of subnets to generate using the cidrsubnet function  
   public_sn_count = 2
   max_subnets     = 20
   access_ip       = var.access_ip

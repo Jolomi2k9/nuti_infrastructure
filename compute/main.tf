@@ -33,7 +33,7 @@ resource "aws_instance" "tr_node" {
   vpc_security_group_ids = [var.public_sg]
   subnet_id              = var.public_subnets[0]
   
-  for_each = toset(["jenkins-server", "build-server", "ansible"])
+  for_each = toset(["jenkins-server", "sonarqube", "ansible", "host_server"])
   tags = {
     Name = "${each.key}"
   }  

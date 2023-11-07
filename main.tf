@@ -20,4 +20,5 @@ module "compute" {
   instance_type   = "t2.micro"
   public_key_path = var.public_key_path
   key_name        = "trkey"
+  
 }

@@ -37,4 +37,5 @@ resource "aws_instance" "tr_node" {
   tags = {
     Name = "${each.key}"
   }  
+  
 }

@@ -5,7 +5,7 @@ module "networking" {
   vpc_cidr = local.vpc_cidr
   #number of subnets to generate using the cidrsubnet function  
   public_sn_count = 2
-  max_subnets     = 20
+  max_subnets     = 5
   access_ip       = var.access_ip
   security_groups = local.security_groups
   #for loop to generate subnet numbers using cidrsubnet function 
@@ -16,9 +16,17 @@ module "compute" {
   source          = "./compute"
   public_sg       = module.networking.public_sg
   public_subnets  = module.networking.public_subnets
-  instance_count  = 2
-  instance_type   = "t2.micro"
+  instance_count  = 3
+  instance_type   = "t2.small"
   public_key_path = var.public_key_path
   key_name        = "trkey"
   
+}
+
+module "eks" {
+  source          = "./eks"
+  vpc_id          = module.networking.vpc_id
+  public_subnets  = module.networking.public_subnets
+  public_sg       = module.networking.public_sg
+  public_key_path = var.public_key_path
 }

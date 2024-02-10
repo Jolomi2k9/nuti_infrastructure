@@ -21,6 +21,20 @@ locals {
           protocol    = "tcp"
           cidr_blocks = [var.access_ip]
         }
+
+        host = {
+          from        = var.host_port
+          to          = var.host_port
+          protocol    = "tcp"
+          cidr_blocks = [var.access_ip]
+        }
+
+         eks = {
+          from        = var.eks_port
+          to          = var.eks_port
+          protocol    = "tcp"
+          cidr_blocks = [var.access_ip]
+        }
       }
     }
   }

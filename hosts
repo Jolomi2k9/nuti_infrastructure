@@ -1,15 +1,10 @@
 [jenkins-server]
- 10.0.2.136
+ 10.0.2.84
 [jenkins-server:vars]
  ansible_user=ubuntu
  ansible_ssh_private_key_file=/opt/trkey
-[sonarqube]
- 10.0.2.144
-[sonarqube:vars]
- ansible_user=ubuntu
- ansible_ssh_private_key_file=/opt/trkey
 [host-server]
- 10.0.2.95
+ 10.0.2.10
 [host-server:vars]
  ansible_user=ubuntu
  ansible_ssh_private_key_file=/opt/trkey

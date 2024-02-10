@@ -1,0 +1,26 @@
+---
+- hosts: Deployment-Server
+  become: true
+  tasks:
+  - name: Update Ubuntu repo and cache
+    apt:
+      update_cache: yes
+      cache_valid_time: 3600
+
+  - name: install java 
+    apt: 
+      name: openjdk-11-jre
+      state: present
+
+  - name: Install Python3 and pip
+    apt:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - python3
+      - python3-pip
+
+  - name: Install python3-venv
+    apt:
+      name: python3-venv
+      state: present 

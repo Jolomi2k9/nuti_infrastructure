@@ -5,7 +5,13 @@ locals {
   azs = data.aws_availability_zones.available.names
 }
 
-data "aws_availability_zones" "available" {}
+data "aws_availability_zones" "available" {
+  state = "available"
+  filter {
+    name   = "zone-name"
+    values = ["us-east-1a", "us-east-1b", "us-east-1c", "us-east-1d", "us-east-1f"]
+  }
+}
 
 #random resource for generating vpc numbers
 resource "random_integer" "random" {

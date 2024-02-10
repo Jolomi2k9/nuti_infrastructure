@@ -30,4 +30,59 @@
   - name: enable jenkins to start at boot time 
     service: 
       name: jenkins 
-      enabled: yes 
+      enabled: yes  
+
+  - name: Install Python3 and pip
+    apt:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - python3
+      - python3-pip
+
+  - name: Add Google Chrome GPG key
+    ansible.builtin.apt_key:
+      url: https://dl.google.com/linux/linux_signing_key.pub
+      state: present
+
+  - name: Add Google Chrome repository
+    apt_repository:
+      repo: 'deb https://dl.google.com/linux/chrome/deb/ stable main'
+      state: present
+      update_cache: yes
+
+  - name: Install Google Chrome
+    apt:
+      name: google-chrome-stable
+      state: present
+  
+  # - name: Download latest ChromeDriver version
+  #   apt:
+  #     name: ['gnupg2', 'wget']
+  #     state: present
+  #     update_cache: yes
+
+  - name: Download the specified ChromeDriver version
+    get_url:
+      url: "https://chromedriver.storage.googleapis.com/120.0.6099.71/chromedriver_linux64.zip"
+      dest: /tmp/chromedriver_linux64.zip
+      mode: '0755'
+
+  - name: Extract ChromeDriver
+    unarchive:
+      src: /tmp/chromedriver_linux64.zip
+      dest: /usr/local/bin
+      copy: no
+      creates: /usr/local/bin/chromedriver
+
+  - name: Set executable permissions for ChromeDriver
+    file:
+      path: /usr/local/bin/chromedriver
+      mode: '0755'
+
+  - name: Install Python Selenium package
+    pip:
+      name: selenium
+      state: present
+
+    

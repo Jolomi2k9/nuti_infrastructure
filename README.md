@@ -6,4 +6,4 @@
 The architectural overview of this project is as follows:
 
 
-![alt text](https://github.com/Jolomi2k9/Terraform-and-Jenkins-CI-CD-pipeline/blob/main/images/Serverless Backend CI_CD V2.png  "Architecture overview")
+![alt text](https://github.com/Jolomi2k9/nuti_infrastructure/blob/dev/images/Serverless%20Backend%20CI_CD%20V2.png  "Architecture overview")

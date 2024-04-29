@@ -1,26 +1,46 @@
 ---
-- hosts: Deployment-Server
+- hosts: deployment-server
   become: true
   tasks:
-  - name: Update Ubuntu repo and cache
-    apt:
-      update_cache: yes
-      cache_valid_time: 3600
+    - name: Update Ubuntu repo and cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
 
-  - name: install java 
-    apt: 
-      name: openjdk-11-jre
-      state: present
+    - name: install java 
+      apt: 
+        name: openjdk-11-jre
+        state: present
 
-  - name: Install Python3 and pip
-    apt:
-      name: "{{ item }}"
-      state: present
-    loop:
-      - python3
-      - python3-pip
+    - name: Install Node.js dependencies (build-essential, curl)
+        apt:
+          name: "{{ packages }}"
+          state: present
+        vars:
+          packages:
+            - build-essential
+            - curl
 
-  - name: Install python3-venv
-    apt:
-      name: python3-venv
-      state: present 
+    - name: Install NVM
+      shell: |
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+
+    - name: Source NVM for all users
+      lineinfile:
+        path: /etc/profile.d/nvm.sh
+        line: 'export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'
+        create: yes
+
+    - name: Install Node.js (version 16) using NVM
+      shell: |
+        source /etc/profile.d/nvm.sh # Ensure NVM is loaded
+        nvm install 16
+        nvm use 16
+
+    - name: Install the Serverless Framework CLI globally
+      npm:
+        name: serverless
+        global: yes
+        state: present  
+
+ 

@@ -1,7 +1,6 @@
 locals {
   vpc_cidr = "10.0.0.0/16"
 }
-
 locals {
   security_groups = {
     public = {
@@ -28,13 +27,12 @@ locals {
           protocol    = "tcp"
           cidr_blocks = [var.access_ip]
         }
-
-         eks = {
-          from        = var.eks_port
-          to          = var.eks_port
-          protocol    = "tcp"
-          cidr_blocks = [var.access_ip]
-        }
+        #  eks = {
+        #   from        = var.eks_port
+        #   to          = var.eks_port
+        #   protocol    = "tcp"
+        #   cidr_blocks = [var.access_ip]
+        # }
       }
     }
   }

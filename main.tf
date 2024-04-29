@@ -23,10 +23,3 @@ module "compute" {
   
 }
 
-module "eks" {
-  source          = "./eks"
-  vpc_id          = module.networking.vpc_id
-  public_subnets  = module.networking.public_subnets
-  public_sg       = module.networking.public_sg
-  public_key_path = var.public_key_path
-}

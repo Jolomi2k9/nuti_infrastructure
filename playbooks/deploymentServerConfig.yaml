@@ -1,4 +1,4 @@
-- hosts: host-server
+- hosts: deployment-server
   become: true 
   tasks: 
   - name: update ubuntu repo and cache 

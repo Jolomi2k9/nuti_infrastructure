@@ -26,14 +26,18 @@ resource "aws_key_pair" "tr_auth" {
 }
 
 resource "aws_instance" "tr_node" {  
-  instance_type = var.instance_type 
+  # instance_type = var.instance_type 
   ami           = data.aws_ami.server_ami.id    
 
   key_name               = aws_key_pair.tr_auth.id
   vpc_security_group_ids = [var.public_sg]
   subnet_id              = var.public_subnets[0]
   
-  for_each = toset(["jenkins-server", "ansible", "host_server"])
+  for_each = toset(["jenkins-server", "ansible-server", "deployment-server"])
+
+  // Use a conditional expression to determine the instance type
+  instance_type = each.key == "deployment-server" ? "t2.medium" : var.instance_type
+
   tags = {
     Name = "${each.key}"
   }  
